@@ -83,18 +83,15 @@
 </head>
 <body class="antialiased text-slate-800">
 
-    <!-- CABEÇALHO FIXO -->
     <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-3">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center gap-2">
                     <svg class="h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path>
                     </svg>
                     <span class="text-2xl font-bold text-slate-900 tracking-tight">Sync<span class="text-primary">ERP</span></span>
                 </a>
-                <!-- Navegação e CTA -->
                 <div class="flex items-center gap-4 md:gap-6">
                     <a href="guia-migracao.html" class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors hidden md:block">
                         Guia de Migração
@@ -159,6 +156,7 @@
 
             <div class="text-center mb-4">
                 <p class="text-slate-600">Selecione quais tipos de cadastros você deseja migrar:</p>
+                <p class="text-sm text-slate-500 mt-1">É obrigatório selecionar ao menos uma opção para prosseguir.</p>
             </div>
             <div id="module-selection" class="flex justify-center flex-wrap gap-4 mb-8">
                 <button type="button" data-mode="clientes" class="module-btn bg-white text-slate-700 font-bold py-3 px-6 rounded-lg shadow-md border border-slate-300 hover:bg-primary-50 flex items-center text-sm md:text-base transition-all">
@@ -293,7 +291,6 @@
         </main>
     </div>
 
-    <!-- Privacy Policy Modal -->
     <div id="privacy-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
         <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
             <button id="close-privacy-modal-button-x" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
@@ -609,7 +606,6 @@
         });
     </script>
 
-    <!--Start of Tawk.to Script-->
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
@@ -621,7 +617,5 @@
     s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
-    <!--End of Tawk.to Script-->
-
-</body>
+    </body>
 </html>
