@@ -108,7 +108,7 @@
                     <a href="guia-migracao.html" class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors hidden md:block">
                         Guia de Migração
                     </a>
-                    <a href="index.html#module-selection" class="bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-primary-600 transition-all shadow text-sm">
+                    <a href="index.html#orcamento" class="bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-primary-600 transition-all shadow text-sm">
                         Solicitar Orçamento
                     </a>
                 </div>
@@ -208,50 +208,11 @@
             <div class="text-center mt-16 pt-8 border-t border-slate-200">
                  <h3 class="text-2xl font-extrabold text-primary-900">Pronto para <span class="styled-underline">começar?</span></h3>
                  <p class="text-slate-600 mt-2">Volte para a página inicial e preencha o formulário para receber sua análise gratuita.</p>
-                 <a href="index.html#module-selection" class="mt-6 inline-block bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-600 transition-all shadow-lg text-lg">
+                 <a href="index.html#orcamento" class="mt-6 inline-block bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-600 transition-all shadow-lg text-lg">
                     Iniciar Minha Migração Agora
                 </a>
             </div>
         </section>
-    </div>
-    
-    <div id="privacy-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
-        <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button id="close-privacy-modal-button-x" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            <h2 class="text-3xl font-bold text-slate-900 mb-6">Política de Privacidade</h2>
-            <div class="text-left text-slate-700 space-y-4">
-                <p class="leading-relaxed">Esta Política de Privacidade explica como coletamos, utilizamos e protegemos as informações enviadas por meio desta página. Ao enviar suas planilhas, você concorda com as práticas descritas abaixo.</p>
-                <h3 class="text-xl font-bold text-slate-800 pt-4">1. Coleta de dados</h3>
-                <p class="leading-relaxed">Recebemos exclusivamente os arquivos e informações necessários para a prestação do serviço de migração de dados para o Omie ERP, como:</p>
-                <ul class="list-disc list-inside space-y-2 pl-4">
-                    <li>Cadastro de clientes;</li>
-                    <li>Cadastro de produtos;</li>
-                    <li>Informações financeiras (como contas a pagar e a receber).</li>
-                </ul>
-                <h3 class="text-xl font-bold text-slate-800 pt-4">2. Uso das informações</h3>
-                <p class="leading-relaxed">Os dados enviados serão utilizados exclusivamente para realizar o serviço de migração solicitado. Não compartilhamos, vendemos ou divulgamos essas informações a terceiros sem sua autorização.</p>
-                <h3 class="text-xl font-bold text-slate-800 pt-4">3. Armazenamento e segurança</h3>
-                <p class="leading-relaxed">Seus arquivos são armazenados em ambiente seguro e protegido, com acesso restrito apenas aos profissionais envolvidos no serviço.</p>
-                <p class="leading-relaxed">Os dados serão mantidos apenas pelo tempo necessário para concluir a migração e, após a finalização, serão excluídos de forma permanente.</p>
-                <h3 class="text-xl font-bold text-slate-800 pt-4">4. Direitos do titular</h3>
-                <p class="leading-relaxed">Em conformidade com a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018), você pode, a qualquer momento:</p>
-                 <ul class="list-disc list-inside space-y-2 pl-4">
-                    <li>Solicitar confirmação de que tratamos seus dados;</li>
-                    <li>Solicitar acesso e cópia dos dados fornecidos;</li>
-                    <li>Solicitar correção de informações incorretas ou incompletas;</li>
-                    <li>Solicitar a exclusão dos dados tratados com seu consentimento.</li>
-                </ul>
-                <h3 class="text-xl font-bold text-slate-800 pt-4">5. Contato</h3>
-                <p class="leading-relaxed">Para qualquer dúvida sobre esta Política de Privacidade ou para exercer seus direitos, entre em contato conosco através do e-mail: <a href="mailto:contato@syncerp.com.br" class="text-primary hover:underline">contato@syncerp.com.br</a>.</p>
-            </div>
-            <div class="text-center mt-10">
-                <button id="close-privacy-modal-button" class="bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-primary-600 transition-all shadow">
-                    Fechar
-                </button>
-            </div>
-        </div>
     </div>
 
     <footer class="text-center py-8 mt-12 border-t border-slate-200 text-sm text-slate-500">
@@ -263,40 +224,5 @@
             <a href="#" id="privacy-policy-link" class="hover:text-primary transition">Política de Privacidade</a>
         </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const privacyModal = document.getElementById('privacy-modal');
-            const privacyPolicyLink = document.getElementById('privacy-policy-link');
-            const closePrivacyModalButton = document.getElementById('close-privacy-modal-button');
-            const closePrivacyModalButtonX = document.getElementById('close-privacy-modal-button-x');
-
-            const openPrivacyModal = (e) => {
-                e.preventDefault();
-                privacyModal.classList.remove('hidden');
-            };
-
-            const closePrivacyModal = () => {
-                privacyModal.classList.add('hidden');
-            };
-
-            if (privacyPolicyLink) {
-                privacyPolicyLink.addEventListener('click', openPrivacyModal);
-            }
-            if (closePrivacyModalButton) {
-                closePrivacyModalButton.addEventListener('click', closePrivacyModal);
-            }
-            if (closePrivacyModalButtonX) {
-                closePrivacyModalButtonX.addEventListener('click', closePrivacyModal);
-            }
-            
-            // Close modal if clicking outside of it
-            privacyModal.addEventListener('click', (e) => {
-                if(e.target === privacyModal) {
-                    closePrivacyModal();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
