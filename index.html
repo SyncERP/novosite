@@ -1,1 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncERP - Migração de Dados para Omie</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke-width='1.5' stroke='%2300a6ff' fill='none'><path stroke-linecap='round' stroke-linejoin='round' d='M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5'/></svg>">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#00a6ff',
+              '50': '#e5f6ff',
+              '100': '#b8e9ff',
+              '200': '#8ad8ff',
+              '300': '#5cc7ff',
+              '400': '#2eb6ff',
+              '500': '#00a6ff',
+              '600': '#0095e6',
+              '700': '#007fbf',
+              '800': '#006899',
+              '900': '#00577d',
+              '950': '#00354d',
+            }
+          }
+        }
+      }
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .timeline-step { display: flex; align-items: center; flex-grow: 1; }
+        .timeline-step:last-child { flex-grow: 0; }
+        .timeline-step .circle {
+            width: 2.5rem; height: 2.5rem; border-radius: 9999px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; transition: all 0.3s ease; border: 2px solid;
+        }
+        .timeline-step .line { height: 2px; flex-grow: 1; transition: all 0.3s ease; }
+        .timeline-step .circle { background-color: #fff; border-color: #e2e8f0; color: #94a3b8; }
+        .timeline-step .line { background-color: #e2e8f0; }
+        .timeline-step.active .circle {
+            background-color: #00a6ff; 
+            border-color: #00a6ff;
+            color: #fff;
+        }
+        .timeline-step.completed .circle { background-color: #22c55e; border-color: #22c55e; color: #fff; }
+        .timeline-step.completed .line { background-color: #22c55e; }
+    </style>
+</head>
+<body class="antialiased text-slate-800">
+
+    <!-- CABEÇALHO FIXO -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2">
+                    <svg class="h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path>
+                    </svg>
+                    <span class="text-2xl font-bold text-slate-900 tracking-tight">Sync<span class="text-primary">ERP</span></span>
+                </a>
+                <!-- Navegação e CTA -->
+                <div class="flex items-center gap-4 md:gap-6">
+                    <a href="guia-migracao.html" class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors hidden md:block">
+                        Guia de Migração
+                    </a>
+                    <a href="#contact-form" class="bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-primary-600 transition-all shadow text-sm">
+                        Solicitar Orçamento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen container mx-auto px-4 pt-12 md:pt-16 pb-8">
+        
+        <header class="text-center mb-16 max-w-4xl mx-auto">
+            <div class="flex justify-center items-center gap-3">
+                 <svg class="h-10 w-10 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin='round' d='M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5' />
+                  </svg>
+                <h1 class="text-5xl font-extrabold text-slate-900 tracking-tight">Sync<span class="text-primary">ERP</span></h1>
+            </div>
+            <p class="mt-3 text-xl text-slate-600">Migração de Dados para Omie, Sem Complicação</p>
+            
+            <div id="header-features" class="mt-8 space-y-4 text-slate-700 text-left">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 mr-3">
+                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <circle cx="12" cy="12" r="11" stroke="#22c55e" stroke-width="2"/>
+                           <path d="M8.5 12.5l2.5 2.5 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span><strong>Supere a maior dificuldade:</strong> A migração de dados do seu sistema antigo para o Omie ERP não precisa ser uma dor de cabeça. Nós resolvemos isso para você.</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 mr-3">
+                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <circle cx="12" cy="12" r="11" stroke="#22c55e" stroke-width="2"/>
+                           <path d="M8.5 12.5l2.5 2.5 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span><strong>Mapeamento com Inteligência Artificial:</strong> Usamos IA para analisar e mapear os dados de qualquer sistema, garantindo um processo mais rápido e confiável.</span>
+                </div>
+                <div class="flex items-center">
+                   <div class="flex-shrink-0 mr-3">
+                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <circle cx="12" cy="12" r="11" stroke="#22c55e" stroke-width="2"/>
+                           <path d="M8.5 12.5l2.5 2.5 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span><strong>Análise Gratuita:</strong> Envie sua planilha agora e receba uma análise sem compromisso da nossa equipe de especialistas.</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-4xl mx-auto">
+            <div class="text-center pt-16 mb-2">
+                 <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">Solicite seu Orçamento</h2>
+                 <p class="mt-3 text-lg text-slate-600 max-w-2xl mx-auto">Preencha o formulário abaixo para receber uma análise gratuita.</p>
+            </div>
+            <div id="module-selection" class="flex justify-center flex-wrap gap-4 mb-8 pt-8">
+                <button type="button" data-mode="clientes" class="module-btn bg-white text-slate-700 font-bold py-3 px-6 md:px-8 rounded-lg shadow-md border border-slate-300 hover:bg-primary-50 flex items-center text-sm md:text-base transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    Clientes e Fornecedores
+                </button>
+                <button type="button" data-mode="produtos" class="module-btn bg-white text-slate-700 font-bold py-3 px-6 md:px-8 rounded-lg shadow-md border border-slate-300 hover:bg-primary-50 flex items-center text-sm md:text-base transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    Produtos
+                </button>
+                <button type="button" data-mode="pagar" class="module-btn bg-white text-slate-700 font-bold py-3 px-6 md:px-8 rounded-lg shadow-md border border-slate-300 hover:bg-primary-50 flex items-center text-sm md:text-base transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
+                    </svg>
+                    Contas a Pagar
+                </button>
+                <button type="button" data-mode="receber" class="module-btn bg-white text-slate-700 font-bold py-3 px-6 md:px-8 rounded-lg shadow-md border border-slate-300 hover:bg-primary-50 flex items-center text-sm md:text-base transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    Contas a Receber
+                </button>
+            </div>
+
+            <div id="timeline-container" class="flex mb-12">
+                <div id="timeline-1" class="timeline-step active"> <div class="circle">1</div> <div class="line"></div> </div>
+                <div id="timeline-2" class="timeline-step"> <div class="circle">2</div> <div class="line"></div> </div>
+                <div id="timeline-3" class="timeline-step"> <div class="circle">3</div> </div>
+            </div>
+            
+            <form id="contact-form">
+                <input type="hidden" id="migrationType" name="tipo_de_migracao" value="">
+                <input type="hidden" id="fileUrl" name="link_do_anexo" value="">
+                <input type="hidden" id="planilhaStatus" name="status_planilha" value="">
+                <input type="hidden" id="sistemaAtual" name="sistema_atual" value="">
+
+                <div id="step-1-content" class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200">
+                    <h2 class="text-2xl font-semibold text-slate-800 mb-1">Passo 1: Envio dos Dados</h2>
+                    <p class="text-slate-600 mb-6">Selecione uma das opções abaixo e, se tiver a planilha, anexe o arquivo.</p>
+                    
+                    <div class="max-w-md mx-auto space-y-4 mb-6">
+                        <label class="flex items-center p-4 border-2 border-slate-300 rounded-lg cursor-pointer hover:border-primary has-[:checked]:border-primary has-[:checked]:bg-primary-50 transition-all">
+                            <input type="radio" name="planilha_option" value="sim" class="h-5 w-5 text-primary focus:ring-primary border-gray-300">
+                            <span class="ml-3 text-slate-700 font-semibold">Já tenho os cadastros em planilha</span>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-slate-300 rounded-lg cursor-pointer hover:border-primary has-[:checked]:border-primary has-[:checked]:bg-primary-50 transition-all">
+                            <input type="radio" name="planilha_option" value="nao" class="h-5 w-5 text-primary focus:ring-primary border-gray-300">
+                            <span class="ml-3 text-slate-700 font-semibold">Preciso de ajuda para exportar</span>
+                        </label>
+                    </div>
+
+                    <div id="sistema-atual-section" class="max-w-md mx-auto mb-6 hidden">
+                        <label for="sistema-atual-input" class="block text-sm font-medium text-slate-700 mb-1">Qual o nome do seu sistema atual? (Opcional)</label>
+                        <input type="text" id="sistema-atual-input" class="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary" placeholder="Ex: Conta Azul, Bling, etc.">
+                    </div>
+
+                    <div id="file-upload-section" class="max-w-md mx-auto hidden">
+                        <label for="file-upload" id="file-upload-label" class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer bg-slate-50 hover:bg-primary-50 hover:border-primary transition-colors">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center">
+                                <svg class="w-10 h-10 mb-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p id="file-label-text" class="mb-2 text-sm text-slate-500"><span class="font-semibold">Fazer o upload da sua planilha</span></p>
+                                <p class="text-xs text-slate-500">Para múltiplos arquivos, envie um arquivo compactado (.zip)</p>
+                                <p id="file-name" class="text-xs text-slate-600 font-semibold mt-1"></p>
+                            </div>
+                            <input id="file-upload" type="file" class="hidden" accept=".xls,.xlsx,.csv,.zip,.rar" />
+                        </label>
+                    </div>
+                    <div class="text-right mt-8">
+                        <button type="button" id="goToStep2Button" class="bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-primary-600 transition-all shadow disabled:bg-slate-400 disabled:cursor-not-allowed">
+                            Preencher Contato →
+                        </button>
+                    </div>
+                </div>
+
+                <div id="step-2-content" class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 hidden">
+                    <h2 class="text-2xl font-semibold text-slate-800 mb-1">Passo 2: Seus Dados de Contato</h2>
+                    <p class="text-slate-600 mb-6">Preencha abaixo para que nossa equipe entre em contato.</p>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <label for="fullName" class="block text-sm font-medium text-slate-700">Nome Completo</label>
+                            <input type="text" id="fullName" name="nome" required class="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700">E-mail</label>
+                            <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-slate-700">WhatsApp (com DDD)</label>
+                            <input type="tel" id="phone" name="whatsapp" required class="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary" placeholder="(11) 99999-8888">
+                        </div>
+                        <div>
+                            <label for="cnpj" class="block text-sm font-medium text-slate-700">CNPJ</label>
+                            <input type="text" id="cnpj" name="cnpj" required class="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-primary focus:border-primary" placeholder="00.000.000/0001-00">
+                        </div>
+                        <div class="pt-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="terms" name="terms" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                <span class="ml-2 text-sm text-slate-600">Li e Aceito os <a href="#" id="terms-link" class="text-primary hover:underline">termos de uso e privacidade</a></span>
+                            </label>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4">
+                             <button type="button" id="backToStep1Button" class="text-slate-600 font-bold py-2 px-6 rounded-lg hover:bg-slate-100 transition-all">
+                                ← Voltar
+                            </button>
+                            <button type="submit" id="submitButton" class="bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-primary-600 transition-all shadow disabled:bg-slate-400 disabled:cursor-not-allowed">
+                                Enviar para Análise →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div id="step-3-content" class="hidden text-center">
+                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 max-w-lg mx-auto">
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="h-16 w-16 text-green-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="font-bold text-xl text-slate-800">Dados Recebidos com Sucesso!</p>
+                        <p class="text-slate-600 mt-2">Obrigado! Recebemos seus dados. Entraremos em contato em breve.</p>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <button id="startOverButton" class="text-slate-600 font-bold py-2 px-6 rounded-lg hover:bg-slate-100 transition-all">
+                        ← Enviar Novo Formulário
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
+        <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+            <button id="close-privacy-modal-button-x" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 class="text-3xl font-bold text-slate-900 mb-6">Política de Privacidade</h2>
+            <div class="text-left text-slate-700 space-y-4">
+                <p class="leading-relaxed">Esta Política de Privacidade explica como coletamos, utilizamos e protegemos as informações enviadas por meio desta página. Ao enviar suas planilhas, você concorda com as práticas descritas abaixo.</p>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">1. Coleta de dados</h3>
+                <p class="leading-relaxed">Recebemos exclusivamente os arquivos e informações necessários para a prestação do serviço de migração de dados para o Omie ERP, como:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li>Cadastro de clientes;</li>
+                    <li>Cadastro de produtos;</li>
+                    <li>Informações financeiras (como contas a pagar e a receber).</li>
+                </ul>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">2. Uso das informações</h3>
+                <p class="leading-relaxed">Os dados enviados serão utilizados exclusivamente para realizar o serviço de migração solicitado. Não compartilhamos, vendemos ou divulgamos essas informações a terceiros sem sua autorização.</p>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">3. Armazenamento e segurança</h3>
+                <p class="leading-relaxed">Seus arquivos são armazenados em ambiente seguro e protegido, com acesso restrito apenas aos profissionais envolvidos no serviço.</p>
+                <p class="leading-relaxed">Os dados serão mantidos apenas pelo tempo necessário para concluir a migração e, após a finalização, serão excluídos de forma permanente.</p>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">4. Direitos do titular</h3>
+                <p class="leading-relaxed">Em conformidade com a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018), você pode, a qualquer momento:</p>
+                 <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li>Solicitar confirmação de que tratamos seus dados;</li>
+                    <li>Solicitar acesso e cópia dos dados fornecidos;</li>
+                    <li>Solicitar correção de informações incorretas ou incompletas;</li>
+                    <li>Solicitar a exclusão dos dados tratados com seu consentimento.</li>
+                </ul>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">5. Contato</h3>
+                <p class="leading-relaxed">Para qualquer dúvida sobre esta Política de Privacidade ou para exercer seus direitos, entre em contato conosco através do e-mail: <a href="mailto:contato@syncerp.com.br" class="text-primary hover:underline">contato@syncerp.com.br</a>.</p>
+            </div>
+            <div class="text-center mt-10">
+                <button id="close-privacy-modal-button" class="bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-primary-600 transition-all shadow">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="text-center py-8 mt-12 border-t border-slate-200 text-sm text-slate-500">
+        <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4">
+            <span>&copy; 2025 SyncERP. Todos os direitos reservados.</span>
+            <span class="hidden md:inline">|</span>
+            <a href="mailto:contato@syncerp.com.br" class="hover:text-primary transition">contato@syncerp.com.br</a>
+            <span class="hidden md:inline">|</span>
+            <a href="#" id="privacy-policy-link" class="hover:text-primary transition">Política de Privacidade</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DO EMAILJS ---
+            const EMAILJS_SERVICE_ID = 'service_wzxqivv';
+            const EMAILJS_TEMPLATE_ID = 'template_jznc8gh';
+            const EMAILJS_PUBLIC_KEY = 'eiLlzJw1_jDE7-oDV';
+            
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+
+            // --- CONFIGURAÇÃO DO CLOUDINARY ---
+            const CLOUDINARY_CLOUD_NAME = "dxdt4gb0d";
+            const CLOUDINARY_UPLOAD_PRESET = "ml_default";
+            const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`;
+
+
+            // --- ESTADO ---
+            let selectedModes = new Set();
+            let planilhaState = null; // 'sim' ou 'nao'
+            const modeLabels = {
+                clientes: 'Clientes e Fornecedores',
+                produtos: 'Produtos',
+                pagar: 'Contas a Pagar',
+                receber: 'Contas a Receber'
+            };
+
+            // --- ELEMENTOS DO DOM ---
+            const privacyModal = document.getElementById('privacy-modal');
+            const privacyPolicyLink = document.getElementById('privacy-policy-link');
+            const closePrivacyModalButton = document.getElementById('close-privacy-modal-button');
+            const closePrivacyModalButtonX = document.getElementById('close-privacy-modal-button-x');
+            const termsLink = document.getElementById('terms-link');
+            
+            const moduleButtons = document.querySelectorAll('.module-btn');
+            const migrationTypeInput = document.getElementById('migrationType');
+            const fileInput = document.getElementById('file-upload');
+            const fileNameDisplay = document.getElementById('file-name');
+            const fileUploadLabel = document.getElementById('file-upload-label');
+            const fileLabelText = document.getElementById('file-label-text');
+            const fileUrlInput = document.getElementById('fileUrl');
+            const planilhaStatusInput = document.getElementById('planilhaStatus');
+            const sistemaAtualInput = document.getElementById('sistemaAtual');
+            
+            const contactForm = document.getElementById('contact-form');
+            const step1Content = document.getElementById('step-1-content');
+            const step2Content = document.getElementById('step-2-content');
+            const step3Content = document.getElementById('step-3-content');
+            const goToStep2Button = document.getElementById('goToStep2Button');
+            const backToStep1Button = document.getElementById('backToStep1Button');
+            const startOverButton = document.getElementById('startOverButton');
+            const submitButton = document.getElementById('submitButton');
+            const termsCheckbox = document.getElementById('terms');
+            
+            const timelineContainer = document.getElementById('timeline-container');
+            const timeline1 = document.getElementById('timeline-1');
+            const timeline2 = document.getElementById('timeline-2');
+            const timeline3 = document.getElementById('timeline-3');
+
+            const planilhaOptionRadios = document.querySelectorAll('input[name="planilha_option"]');
+            const fileUploadSection = document.getElementById('file-upload-section');
+            const sistemaAtualSection = document.getElementById('sistema-atual-section');
+            const sistemaAtualInputField = document.getElementById('sistema-atual-input');
+
+            // --- LÓGICA DA UI ---
+            const updateGoToStep2ButtonState = () => {
+                const areModesSelected = selectedModes.size > 0;
+                let isReady = false;
+
+                if (planilhaState === 'sim') {
+                    const isFileUploaded = fileUrlInput.value !== '';
+                    isReady = isFileUploaded && areModesSelected;
+                } else if (planilhaState === 'nao') {
+                    isReady = areModesSelected;
+                }
+
+                goToStep2Button.disabled = !isReady;
+            };
+
+            const updateSubmitButtonState = () => {
+                submitButton.disabled = !termsCheckbox.checked;
+            };
+
+            const showStep = (stepNum) => {
+                step1Content.classList.toggle('hidden', stepNum !== 1);
+                step2Content.classList.toggle('hidden', stepNum !== 2);
+                step3Content.classList.toggle('hidden', stepNum !== 3);
+                
+                timelineContainer.style.display = (stepNum === 3) ? 'none' : 'flex';
+
+                timeline1.classList.toggle('active', stepNum === 1);
+                timeline1.classList.toggle('completed', stepNum > 1);
+                
+                timeline2.classList.toggle('active', stepNum === 2);
+                timeline2.classList.toggle('completed', stepNum > 2);
+
+                timeline3.classList.toggle('active', stepNum === 3);
+                timeline3.classList.toggle('completed', stepNum === 3);
+            };
+
+            const updateModuleButtonsUI = () => {
+                 moduleButtons.forEach(button => {
+                    const buttonMode = button.dataset.mode;
+                    if (selectedModes.has(buttonMode)) {
+                        button.classList.add('bg-primary', 'text-white');
+                        button.classList.remove('bg-white', 'text-slate-700');
+                    } else {
+                        button.classList.remove('bg-primary', 'text-white');
+                        button.classList.add('bg-white', 'text-slate-700');
+                    }
+                });
+            };
+
+            const toggleMode = (mode) => {
+                if (selectedModes.has(mode)) {
+                    selectedModes.delete(mode);
+                } else {
+                    selectedModes.add(mode);
+                }
+                
+                const selectedLabels = Array.from(selectedModes).map(m => modeLabels[m]);
+                migrationTypeInput.value = selectedLabels.join(', ');
+
+                updateModuleButtonsUI();
+                updateGoToStep2ButtonState();
+            };
+            
+            // --- EVENTOS ---
+            planilhaOptionRadios.forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    planilhaState = event.target.value;
+                    if (planilhaState === 'sim') {
+                        fileUploadSection.classList.remove('hidden');
+                        sistemaAtualSection.classList.add('hidden');
+                        planilhaStatusInput.value = 'Já tenho os cadastros em planilha';
+                    } else {
+                        fileUploadSection.classList.add('hidden');
+                        sistemaAtualSection.classList.remove('hidden');
+                        planilhaStatusInput.value = 'Preciso de ajuda para exportar';
+                    }
+                    updateGoToStep2ButtonState();
+                });
+            });
+
+            moduleButtons.forEach(button => {
+                button.addEventListener('click', () => toggleMode(button.dataset.mode));
+            });
+
+            fileInput.addEventListener('change', async () => {
+                if (fileInput.files.length === 0) return;
+
+                const file = fileInput.files[0];
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+                fileNameDisplay.textContent = file.name;
+                fileLabelText.textContent = 'A carregar...';
+                fileUploadLabel.classList.add('border-yellow-500', 'bg-yellow-50');
+                goToStep2Button.disabled = true;
+
+                try {
+                    const response = await fetch(CLOUDINARY_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Falha no upload do arquivo.');
+                    }
+
+                    const result = await response.json();
+                    fileUrlInput.value = result.secure_url; 
+
+                    fileLabelText.textContent = 'Arquivo carregado com sucesso:';
+                    fileUploadLabel.classList.remove('border-yellow-500', 'bg-yellow-50');
+                    fileUploadLabel.classList.add('border-green-500', 'bg-green-50');
+                    updateGoToStep2ButtonState();
+
+                } catch (error) {
+                    console.error(error);
+                    alert('Ocorreu um erro ao carregar o arquivo. Por favor, tente novamente.');
+                    fileLabelText.innerHTML = '<span class="font-semibold">Fazer o upload da sua planilha</span>';
+                    fileNameDisplay.textContent = '';
+                    fileUploadLabel.classList.remove('border-yellow-500', 'bg-yellow-50');
+                    fileInput.value = ''; 
+                }
+            });
+
+            goToStep2Button.addEventListener('click', () => showStep(2));
+            backToStep1Button.addEventListener('click', () => showStep(1));
+            
+            startOverButton.addEventListener('click', () => {
+                contactForm.reset();
+                fileUrlInput.value = '';
+                fileNameDisplay.textContent = '';
+                fileLabelText.innerHTML = '<span class="font-semibold">Fazer o upload da sua planilha</span>';
+                fileUploadLabel.classList.remove('border-green-500', 'bg-green-50');
+                fileUploadSection.classList.add('hidden');
+                sistemaAtualSection.classList.add('hidden');
+                planilhaState = null;
+                planilhaOptionRadios.forEach(r => r.checked = false);
+                selectedModes.clear();
+                updateModuleButtonsUI();
+                showStep(1);
+            });
+
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                
+                submitButton.innerHTML = 'Enviando...';
+                submitButton.disabled = true;
+                
+                sistemaAtualInput.value = sistemaAtualInputField.value;
+
+                const templateParams = {
+                    'Nome': document.getElementById('fullName').value,
+                    'Email': document.getElementById('email').value,
+                    'WhatsApp': document.getElementById('phone').value,
+                    'cnpj': document.getElementById('cnpj').value,
+                    'Tipo de Migração': migrationTypeInput.value,
+                    'link_do_anexo': fileUrlInput.value || 'Nenhum anexo fornecido',
+                    'status_planilha': planilhaStatusInput.value,
+                    'sistema_atual': sistemaAtualInput.value || 'Não informado'
+                };
+
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                    .then((response) => {
+                       console.log('SUCCESS!', response.status, response.text);
+                       showStep(3);
+                    }, (error) => {
+                       console.log('FAILED...', error);
+                       alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+                    })
+                    .finally(() => {
+                        submitButton.innerHTML = 'Enviar para Análise →';
+                        updateSubmitButtonState();
+                    });
+            });
+            
+            termsCheckbox.addEventListener('change', updateSubmitButtonState);
+
+            const openPrivacyModal = (e) => {
+                e.preventDefault();
+                privacyModal.classList.remove('hidden');
+            };
+
+            const closePrivacyModal = () => {
+                privacyModal.classList.add('hidden');
+            };
+
+            privacyPolicyLink.addEventListener('click', openPrivacyModal);
+            termsLink.addEventListener('click', openPrivacyModal);
+            closePrivacyModalButton.addEventListener('click', closePrivacyModal);
+            closePrivacyModalButtonX.addEventListener('click', closePrivacyModal);
+            
+            privacyModal.addEventListener('click', (e) => {
+                if(e.target === privacyModal) {
+                    closePrivacyModal();
+                }
+            });
+
+            // --- INICIALIZAÇÃO ---
+            updateGoToStep2ButtonState();
+            updateSubmitButtonState();
+        });
+    </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/689e1216c2f4c319221a2027/1j2knd9u3';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</body>
+</html>
