@@ -1,1 +1,191 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Migração - SyncERP</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke-width='1.5' stroke='%2300a6ff' fill='none'><path stroke-linecap='round' stroke-linejoin='round' d='M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5'/></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#00a6ff',
+              '50': '#e5f6ff',
+              '100': '#b8e9ff',
+              '200': '#8ad8ff',
+              '300': '#5cc7ff',
+              '400': '#2eb6ff',
+              '500': '#00a6ff',
+              '600': '#0095e6',
+              '700': '#007fbf',
+              '800': '#006899',
+              '900': '#00577d',
+              '950': '#00354d',
+            }
+          }
+        }
+      }
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-800">
+
+    <!-- CABEÇALHO FIXO -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2">
+                    <svg class="h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path>
+                    </svg>
+                    <span class="text-2xl font-bold text-slate-900 tracking-tight">Sync<span class="text-primary">ERP</span></span>
+                </a>
+                <!-- Navegação e CTA -->
+                <div class="flex items-center gap-4 md:gap-6">
+                    <a href="guia-migracao.html" class="text-sm font-semibold text-primary transition-colors hidden md:block">
+                        Guia de Migração
+                    </a>
+                    <a href="index.html#contact-form" class="bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-primary-600 transition-all shadow text-sm">
+                        Solicitar Orçamento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO GUIA DE MIGRAÇÃO -->
+    <main class="container mx-auto px-4 pt-12 md:pt-16 pb-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">Como Funciona Nossa Migração</h1>
+                <p class="mt-3 text-lg text-slate-600 max-w-2xl mx-auto">Um processo claro e estruturado para garantir o sucesso da sua transição para o Omie.</p>
+            </div>
+            
+            <div class="space-y-12">
+                <!-- Passo 1 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6">
+                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">1. Exportação e Envio dos Dados</h2>
+                        <p class="mt-1 text-slate-600">O primeiro passo é com você: exporte os cadastros do seu sistema antigo para planilhas. Em seguida, envie esses arquivos para nós de forma segura através do nosso formulário na página inicial.</p>
+                    </div>
+                </div>
+                <!-- Passo 2 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6">
+                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">2. Análise e Diagnóstico</h2>
+                        <p class="mt-1 text-slate-600">Nossa equipe de especialistas recebe seus arquivos e realiza uma análise completa. Verificamos a estrutura, a qualidade dos dados e identificamos a necessidade de cadastros dependentes (como categorias, contas correntes, etc.). Caso já tenha um aplicativo Omie ativo, fazemos também uma validação via API para verificar a existência desses cadastros e garantir uma importação sem erros.</p>
+                    </div>
+                </div>
+                <!-- Passo 3 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6">
+                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 12v.01M12 12v.01M12 16v.01M12 16v.01M12 21a9 9 0 110-18 9 9 0 010 18z" />
+                         </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">3. Proposta Comercial</h2>
+                        <p class="mt-1 text-slate-600">Com base na complexidade e no volume dos dados, mensuramos o trabalho e enviamos uma proposta comercial transparente para sua aprovação. Sem surpresas ou custos escondidos.</p>
+                    </div>
+                </div>
+                <!-- Passo 4 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6">
+                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">4. Tratamento e Mapeamento dos Dados</h2>
+                        <p class="mt-1 text-slate-600">Com a proposta aprovada, nosso sistema e especialistas entram em ação. Limpamos, tratamos e mapeamos cada coluna da sua planilha para o campo correspondente no Omie, garantindo a integridade total das informações.</p>
+                    </div>
+                </div>
+                <!-- Passo 5 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6">
+                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">5. Validação e Entrega</h2>
+                        <p class="mt-1 text-slate-600">Antes da entrega, realizamos uma validação final. Enviamos a(s) planilha(s) prontas, já no layout padrão de importação do Omie, para que você possa revisar e aprovar.</p>
+                    </div>
+                </div>
+                <!-- Passo 6 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6">
+                    <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                         </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">6. Suporte na Importação Final</h2>
+                        <p class="mt-1 text-slate-600">Não deixamos você na mão. Nossa equipe oferece todo o auxílio necessário para que você realize a importação final para o seu ambiente Omie com total segurança e sucesso.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="index.html#contact-form" class="bg-primary text-white font-bold py-4 px-8 rounded-lg hover:bg-primary-600 transition-all shadow-lg text-lg">
+                    Iniciar Minha Migração Agora
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="text-center py-8 border-t border-slate-200 text-sm text-slate-500">
+        <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4">
+            <span>&copy; 2025 SyncERP. Todos os direitos reservados.</span>
+            <span class="hidden md:inline">|</span>
+            <a href="mailto:contato@syncerp.com.br" class="hover:text-primary transition">contato@syncerp.com.br</a>
+            <span class="hidden md:inline">|</span>
+            <a href="#" id="privacy-policy-link" class="hover:text-primary transition">Política de Privacidade</a>
+        </div>
+    </footer>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/689e1216c2f4c319221a2027/1j2knd9u3';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</body>
+</html>
