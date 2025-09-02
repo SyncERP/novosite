@@ -95,18 +95,15 @@
 </head>
 <body class="antialiased text-slate-800">
 
-    <!-- CABEÇALHO FIXO -->
     <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-3">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center gap-2">
                     <svg class="h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path>
                     </svg>
                     <span class="text-2xl font-bold text-slate-900 tracking-tight">Sync<span class="text-primary">ERP</span></span>
                 </a>
-                <!-- Navegação e CTA -->
                 <div class="flex items-center gap-4 md:gap-6">
                     <a href="guia-migracao.html" class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors hidden md:block">
                         Guia de Migração
@@ -120,11 +117,9 @@
     </nav>
 
     <div class="min-h-screen container mx-auto px-4 py-12 md:py-16">
-        <!-- SEÇÃO - GUIA DE MIGRAÇÃO -->
         <section id="guia-migracao" class="max-w-4xl mx-auto">
             <div class="text-center mb-16">
-                 <!-- Logo e nome da empresa -->
-                <div class="flex justify-center items-center gap-3 mb-8">
+                 <div class="flex justify-center items-center gap-3 mb-8">
                     <svg class="h-10 w-10 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                        <path stroke-linecap="round" stroke-linejoin='round' d='M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5' />
                      </svg>
@@ -136,7 +131,6 @@
             </div>
             
             <div class="max-w-2xl mx-auto">
-                <!-- Passo 1 -->
                 <div class="timeline-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-icon">
@@ -149,7 +143,6 @@
                         <p class="mt-1 text-slate-600">Exporte os cadastros do seu sistema antigo para planilhas e envie para nós através do formulário em nossa página inicial.</p>
                     </div>
                 </div>
-                <!-- Passo 2 -->
                 <div class="timeline-item">
                      <div class="timeline-line"></div>
                     <div class="timeline-icon">
@@ -162,7 +155,6 @@
                         <p class="mt-1 text-slate-600">Nossa equipe analisa a estrutura dos seus dados, e valida se os campos obrigatórios estão preenchidos. Se você já tem um aplicativo Omie ativo, solicitamos as credenciais para fazermos a validação de cadastros dependentes via API.</p>
                     </div>
                 </div>
-                <!-- Passo 3 -->
                 <div class="timeline-item">
                      <div class="timeline-line"></div>
                     <div class="timeline-icon">
@@ -175,7 +167,6 @@
                         <p class="mt-1 text-slate-600">Com base na análise e na volumetria de dados, mensuramos os esforços e montamos uma proposta comercial para sua aprovação.</p>
                     </div>
                 </div>
-                <!-- Passo 4 -->
                 <div class="timeline-item">
                      <div class="timeline-line"></div>
                     <div class="timeline-icon">
@@ -188,7 +179,6 @@
                         <p class="mt-1 text-slate-600">Com a proposta aprovada, nosso sistema utiliza Inteligência Artificial para mapear os dados, tratar as informações e realizar testes, garantindo a qualidade da migração.</p>
                     </div>
                 </div>
-                <!-- Passo 5 -->
                 <div class="timeline-item">
                      <div class="timeline-line"></div>
                     <div class="timeline-icon">
@@ -201,8 +191,7 @@
                         <p class="mt-1 text-slate-600">Enviamos as planilhas prontas no layout de importação do Omie, após uma validação final para garantir a integridade dos dados.</p>
                     </div>
                 </div>
-                 <!-- Passo 6 -->
-                <div class="timeline-item">
+                 <div class="timeline-item">
                      <div class="timeline-line"></div>
                     <div class="timeline-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -225,6 +214,45 @@
             </div>
         </section>
     </div>
+    
+    <div id="privacy-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
+        <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+            <button id="close-privacy-modal-button-x" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 class="text-3xl font-bold text-slate-900 mb-6">Política de Privacidade</h2>
+            <div class="text-left text-slate-700 space-y-4">
+                <p class="leading-relaxed">Esta Política de Privacidade explica como coletamos, utilizamos e protegemos as informações enviadas por meio desta página. Ao enviar suas planilhas, você concorda com as práticas descritas abaixo.</p>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">1. Coleta de dados</h3>
+                <p class="leading-relaxed">Recebemos exclusivamente os arquivos e informações necessários para a prestação do serviço de migração de dados para o Omie ERP, como:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li>Cadastro de clientes;</li>
+                    <li>Cadastro de produtos;</li>
+                    <li>Informações financeiras (como contas a pagar e a receber).</li>
+                </ul>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">2. Uso das informações</h3>
+                <p class="leading-relaxed">Os dados enviados serão utilizados exclusivamente para realizar o serviço de migração solicitado. Não compartilhamos, vendemos ou divulgamos essas informações a terceiros sem sua autorização.</p>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">3. Armazenamento e segurança</h3>
+                <p class="leading-relaxed">Seus arquivos são armazenados em ambiente seguro e protegido, com acesso restrito apenas aos profissionais envolvidos no serviço.</p>
+                <p class="leading-relaxed">Os dados serão mantidos apenas pelo tempo necessário para concluir a migração e, após a finalização, serão excluídos de forma permanente.</p>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">4. Direitos do titular</h3>
+                <p class="leading-relaxed">Em conformidade com a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018), você pode, a qualquer momento:</p>
+                 <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li>Solicitar confirmação de que tratamos seus dados;</li>
+                    <li>Solicitar acesso e cópia dos dados fornecidos;</li>
+                    <li>Solicitar correção de informações incorretas ou incompletas;</li>
+                    <li>Solicitar a exclusão dos dados tratados com seu consentimento.</li>
+                </ul>
+                <h3 class="text-xl font-bold text-slate-800 pt-4">5. Contato</h3>
+                <p class="leading-relaxed">Para qualquer dúvida sobre esta Política de Privacidade ou para exercer seus direitos, entre em contato conosco através do e-mail: <a href="mailto:contato@syncerp.com.br" class="text-primary hover:underline">contato@syncerp.com.br</a>.</p>
+            </div>
+            <div class="text-center mt-10">
+                <button id="close-privacy-modal-button" class="bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-primary-600 transition-all shadow">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
 
     <footer class="text-center py-8 mt-12 border-t border-slate-200 text-sm text-slate-500">
         <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4">
@@ -235,5 +263,40 @@
             <a href="#" id="privacy-policy-link" class="hover:text-primary transition">Política de Privacidade</a>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const privacyModal = document.getElementById('privacy-modal');
+            const privacyPolicyLink = document.getElementById('privacy-policy-link');
+            const closePrivacyModalButton = document.getElementById('close-privacy-modal-button');
+            const closePrivacyModalButtonX = document.getElementById('close-privacy-modal-button-x');
+
+            const openPrivacyModal = (e) => {
+                e.preventDefault();
+                privacyModal.classList.remove('hidden');
+            };
+
+            const closePrivacyModal = () => {
+                privacyModal.classList.add('hidden');
+            };
+
+            if (privacyPolicyLink) {
+                privacyPolicyLink.addEventListener('click', openPrivacyModal);
+            }
+            if (closePrivacyModalButton) {
+                closePrivacyModalButton.addEventListener('click', closePrivacyModal);
+            }
+            if (closePrivacyModalButtonX) {
+                closePrivacyModalButtonX.addEventListener('click', closePrivacyModal);
+            }
+            
+            // Close modal if clicking outside of it
+            privacyModal.addEventListener('click', (e) => {
+                if(e.target === privacyModal) {
+                    closePrivacyModal();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
